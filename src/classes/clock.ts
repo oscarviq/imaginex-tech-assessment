@@ -1,0 +1,76 @@
+import { TimeManager } from './time-manager';
+import { MessageManager } from './message-manager';
+import { ClockConfig } from '@types';
+
+export class Clock {
+  /**
+   * TimeManager instance.
+   * @private
+   */
+  private _timeManager: TimeManager;
+
+  /**
+   * MessageManager instance.
+   * @private
+   */
+  private _messageManager: MessageManager;
+
+  /**
+   * Interval reference.
+   * @private
+   */
+  private _interval: NodeJS.Timeout | null = null;
+
+  /**
+   * Timeout reference.
+   * @private
+   */
+  private _timeout: NodeJS.Timeout | null = null;
+
+  /**
+   * Clock constructor.
+   * @param _config
+   */
+  constructor(
+    private _config: ClockConfig
+  ) {
+    this._timeManager = new TimeManager();
+    this._messageManager = new MessageManager(this._config.messages, this._timeManager);
+  }
+
+  /**
+   * Sets the interval that ticks the time manager and prints the message.
+   * @private
+   */
+  private setInterval() {
+    this._interval = setInterval(() => {
+      this._timeManager.tick();
+      this._messageManager.print();
+    }, 1000);
+  }
+
+  /**
+   * Sets the timeout that stops the clock after the duration.
+   * @private
+   */
+  private setTimeout() {
+    this._timeout = setTimeout(() => this.stop(), this._config.duration + 1000);
+  }
+
+  /**
+   * Starts the clock.
+   */
+  public start(): void {
+    this.setInterval();
+    this.setTimeout();
+  }
+
+  /**
+   * Stops the clock and resets the time manager ticks.
+   */
+  public stop(): void {
+    this._timeManager.reset();
+    clearInterval(this._interval as NodeJS.Timeout);
+    clearTimeout(this._timeout as NodeJS.Timeout);
+  }
+}

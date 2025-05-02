@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "esNext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true,
+    "paths": {
+      "@types": ["src/types/index.ts"],
+      "@classes": ["src/classes/index.ts"]
+    }
+  }
+}
