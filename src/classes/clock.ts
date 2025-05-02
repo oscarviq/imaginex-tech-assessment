@@ -1,5 +1,6 @@
 import { TimeManager } from './time-manager';
 import { MessageManager } from './message-manager';
+import { InterfaceManager } from './interface-manager';
 import { ClockConfig } from '@types';
 
 export class Clock {
@@ -14,6 +15,12 @@ export class Clock {
    * @private
    */
   private _messageManager: MessageManager;
+
+  /**
+   * InterfaceManager instance.
+   * @private
+   */
+  private _interfaceManager: InterfaceManager;
 
   /**
    * Interval reference.
@@ -36,6 +43,7 @@ export class Clock {
   ) {
     this._timeManager = new TimeManager();
     this._messageManager = new MessageManager(this._config.messages, this._timeManager);
+    this._interfaceManager = new InterfaceManager(this._messageManager);
   }
 
   /**
@@ -45,7 +53,9 @@ export class Clock {
   private setInterval() {
     this._interval = setInterval(() => {
       this._timeManager.tick();
-      this._messageManager.print();
+      if (!this._interfaceManager.active) {
+        this._messageManager.print();
+      }
     }, 1000);
   }
 
@@ -61,6 +71,7 @@ export class Clock {
    * Starts the clock.
    */
   public start(): void {
+    this._interfaceManager.start();
     this.setInterval();
     this.setTimeout();
   }

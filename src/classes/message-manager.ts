@@ -40,11 +40,7 @@ export class MessageManager {
     }
   }
 
-  // public updateMessage(type: MessageType, newMessage: string): void {
-  //   this.messages[type] = newMessage;
-  // }
-  //
-  // public getMessages(): MessageConfig {
-  //   return { ...this.messages };
-  // }
+  public updateMessage(type: MessageInterval, newMessage: string): void {
+    this._messages[type] = newMessage;
+  }
 }
