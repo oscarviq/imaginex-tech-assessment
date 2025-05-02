@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch --detectOpenHandles"
   },
   "dependencies": {
     "@types/jest": "^29.5.12",

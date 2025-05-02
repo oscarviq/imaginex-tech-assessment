@@ -83,5 +83,6 @@ export class Clock {
     this._timeManager.reset();
     clearInterval(this._interval as NodeJS.Timeout);
     clearTimeout(this._timeout as NodeJS.Timeout);
+    this._interfaceManager.stop();
   }
 }

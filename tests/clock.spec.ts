@@ -67,6 +67,19 @@ describe('Clock', () => {
     expect(test).toContain('fizzbuzz');
   });
 
+  test('Should not print messages if interface manager is active', () => {
+    (clock as any)._interfaceManager.active = true;
+    jest.advanceTimersByTime(60 * 60 * 1000);
+
+    const tests = consoleSpy.mock.calls.map((log: string) => {
+      return log.includes('fizz') &&
+             log.includes('buzz') &&
+             log.includes('fizzbuzz');
+    });
+
+    expect(tests).not.toContain(true);
+  });
+
   test('Should clear the timeout and interval when the clock is stopped', () => {
     clock.stop();
     expect(clearIntervalSpy).toHaveBeenCalled();

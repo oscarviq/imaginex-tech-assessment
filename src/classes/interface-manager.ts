@@ -1,5 +1,6 @@
 import Chalk from 'chalk';
 import readline, { Interface } from 'readline';
+import * as process from 'node:process';
 
 export class InterfaceManager {
   /**
@@ -39,13 +40,24 @@ export class InterfaceManager {
   }
 
   /**
+   * Stops the command line interface.
+   */
+  public stop(): void {
+    this._readline.close();
+  }
+
+  /**
    * Handles key presses.
    * @param str
    * @param key
    * @private
    */
   private handleKey(str: string, key: readline.Key) {
-    if (key.name === 'c' && key.ctrl) process.exit();
+    if (key.name === 'c' && key.ctrl) {
+      this.stop();
+      process.exit();
+    }
+
     if (key.name === 'u' && key.ctrl) this.requestMessageChange();
   }
 
