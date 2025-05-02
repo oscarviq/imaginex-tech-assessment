@@ -49,4 +49,24 @@ describe.only('MessageManager', () => {
     const test = consoleSpy.mock.lastCall[0];
     expect(test).toContain('fizzbuzz');
   });
+
+  test('Should update a message for a specific interval', () => {
+    for (let i = 0; i < 10; i++) {
+      timeManager.tick();
+    }
+    messageManager.print();
+
+    const testCurrent = consoleSpy.mock.lastCall[0];
+    expect(testCurrent).toContain('fizz');
+
+    messageManager.updateMessage('second', 'yay');
+
+    for (let i = 0; i < 10; i++) {
+      timeManager.tick();
+    }
+    messageManager.print();
+
+    const testNew = consoleSpy.mock.lastCall[0];
+    expect(testNew).toContain('yay');
+  });
 });
