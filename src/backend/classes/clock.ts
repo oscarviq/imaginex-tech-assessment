@@ -1,20 +1,24 @@
+import { Server } from 'socket.io';
+
+import { ClockConfig } from '@types';
+import { FrontendSocketEvents, BackendSocketEvents } from '@shared/types';
+
 import { TimeManager } from './time-manager';
 import { MessageManager } from './message-manager';
 import { InterfaceManager } from './interface-manager';
-import { ClockConfig } from '@types';
 
 export class Clock {
   /**
    * TimeManager instance.
    * @private
    */
-  private _timeManager: TimeManager;
+  private readonly _timeManager: TimeManager;
 
   /**
    * MessageManager instance.
    * @private
    */
-  private _messageManager: MessageManager;
+  private readonly _messageManager: MessageManager;
 
   /**
    * InterfaceManager instance.
@@ -35,6 +39,12 @@ export class Clock {
   private _timeout: NodeJS.Timeout | null = null;
 
   /**
+   * Socket.io instance.
+   * @private
+   */
+  private _io: Server<FrontendSocketEvents, BackendSocketEvents> | null = null;
+
+  /**
    * Clock constructor.
    * @param _config
    */
@@ -53,6 +63,14 @@ export class Clock {
   private setInterval() {
     this._interval = setInterval(() => {
       this._timeManager.tick();
+
+      if (this._io) {
+        this._io.emit('tick', {
+          seconds: this._timeManager.ticks,
+          ...this._messageManager.getCurrentMessage()
+        });
+      }
+
       if (!this._interfaceManager.active) {
         this._messageManager.print();
       }
@@ -65,6 +83,11 @@ export class Clock {
    */
   private setTimeout() {
     this._timeout = setTimeout(() => this.stop(), this._config.duration + 1000);
+  }
+
+  public withSockets(io: Server): Clock {
+    if (!this._io) this._io = io;
+    return this;
   }
 
   /**

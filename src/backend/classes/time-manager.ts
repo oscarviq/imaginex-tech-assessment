@@ -1,6 +1,6 @@
 export class TimeManager {
   /**
-   * Number of ticks elapsed.
+   * The number of ticks elapsed.
    * @private
    */
   private _ticks: number;

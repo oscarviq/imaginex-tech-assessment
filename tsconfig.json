@@ -6,8 +6,11 @@
     "esModuleInterop": true,
     "strict": true,
     "paths": {
-      "@types": ["src/types/index.ts"],
-      "@classes": ["src/classes/index.ts"]
-    }
+      "@types": ["./src/backend/types/index.ts"],
+      "@classes": ["./src/backend/classes/index.ts"],
+      "@components": ["./src/frontend/components/index.ts"],
+      "@shared/types": ["./src/shared/types/index.ts"]
+    },
+    "jsx": "react"
   }
 }
