@@ -10,6 +10,9 @@ COPY . .
 # Install dependencies
 RUN npm install
 
+# Run the tests
+RUN npm run frontend:test
+
 # Build the React app
 RUN npm run frontend:build
 
