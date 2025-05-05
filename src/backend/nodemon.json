@@ -1,0 +1,6 @@
+{
+  "watch": ["src/backend", "src/shared"],
+  "ext": "js,ts,json",
+  "ignore": ["src/frontend", "node_modules", "dist"],
+  "exec": "npm run backend:serve"
+}

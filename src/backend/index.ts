@@ -8,9 +8,16 @@ import { Clock } from '@backend/classes';
 const app = express();
 const server = http.createServer(app);
 
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:8080', 'http://localhost'];
 const io = new Server<FrontendSocketEvents, BackendSocketEvents>(server, {
   cors: {
-    origin: 'http://localhost:5173',
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     methods: ['GET', 'POST']
   }
 });

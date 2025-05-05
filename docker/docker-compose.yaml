@@ -1,0 +1,35 @@
+services:
+
+  backend:
+    image: oviquez/imaginex-backend:${APP_VERSION:-latest}
+    build:
+      context: ../
+      dockerfile: ./docker/backend.Dockerfile
+      args:
+        APP_VERSION: ${APP_VERSION:-dev}
+    container_name: "OV-ImagineX-Backend"
+    ports:
+      - 3000:3000
+    networks:
+      - imaginex-net
+    restart: unless-stopped
+
+  frontend:
+    image: oviquez/imaginex-frontend:${APP_VERSION:-latest}
+    build:
+      context: ../
+      dockerfile: ./docker/frontend.Dockerfile
+      args:
+        APP_VERSION: ${APP_VERSION:-dev}
+    container_name: "OV-ImagineX-Frontend"
+    depends_on:
+      - backend
+    ports:
+      - 8080:80
+    networks:
+      - imaginex-net
+    restart: unless-stopped
+
+networks:
+  imaginex-net:
+    driver: bridge

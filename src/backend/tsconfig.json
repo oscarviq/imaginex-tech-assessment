@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "esNext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true,
+    "paths": {
+      "@backend/classes": ["./classes/index.ts"],
+      "@shared/types": ["../shared/types/index.ts"]
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}

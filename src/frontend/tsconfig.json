@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "esNext",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "strict": true,
+    "paths": {
+      "@frontend/components": ["components/index.ts"],
+      "@frontend/utils": ["utils/index.ts"],
+      "@shared/types": ["../shared/types/index.ts"]
+    },
+    "jsx": "react"
+  }
+}
