@@ -1,5 +1,5 @@
-import { MessageManager, TimeManager } from '@classes';
-import { MessagesConfig } from '@types';
+import { MessageManager, TimeManager } from '@backend/classes';
+import { MessagesConfig } from '@shared/types';
 
 describe.only('MessageManager', () => {
   let messageManager: MessageManager;

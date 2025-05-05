@@ -1,7 +1,6 @@
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 
-import { ClockConfig } from '@types';
-import { FrontendSocketEvents, BackendSocketEvents } from '@shared/types';
+import { ClockConfig, FrontendSocketEvents, BackendSocketEvents, MessagesConfig, MessageInterval } from '@shared/types';
 
 import { TimeManager } from './time-manager';
 import { MessageManager } from './message-manager';
@@ -67,7 +66,8 @@ export class Clock {
       if (this._io) {
         this._io.emit('tick', {
           seconds: this._timeManager.ticks,
-          ...this._messageManager.getCurrentMessage()
+          ...this._messageManager.getCurrentMessage(),
+          currentMessages: this._messageManager.messages,
         });
       }
 
@@ -85,8 +85,24 @@ export class Clock {
     this._timeout = setTimeout(() => this.stop(), this._config.duration + 1000);
   }
 
+  /**
+   * Sets the Socket.io instance.
+   * @param io
+   */
   public withSockets(io: Server): Clock {
-    if (!this._io) this._io = io;
+    if (!this._io) {
+      this._io = io;
+
+      this._io.on('connection', (socket: Socket) => {
+
+        socket.on('update', (newMessages: MessagesConfig) => {
+          Object.keys(newMessages).forEach(key => {
+            this._messageManager.updateMessage(key as MessageInterval, newMessages[key as MessageInterval]);
+          });
+        });
+      });
+    }
+
     return this;
   }
 
@@ -103,6 +119,7 @@ export class Clock {
    * Stops the clock and resets the time manager ticks.
    */
   public stop(): void {
+    if (this._io) this._io.removeAllListeners();
     this._timeManager.reset();
     clearInterval(this._interval as NodeJS.Timeout);
     clearTimeout(this._timeout as NodeJS.Timeout);

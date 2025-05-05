@@ -1,5 +1,5 @@
-import { Clock } from '@classes';
-import { ClockConfig } from '@types';
+import { Clock } from '@backend/classes';
+import { ClockConfig } from '@shared/types';
 
 describe('Clock', () => {
   let clock: Clock;

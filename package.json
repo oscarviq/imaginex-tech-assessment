@@ -5,6 +5,7 @@
   "description": "A Node.js/TypeScript clock application that prints messages at specific time intervals",
   "scripts": {
     "backend:dev": "ts-node-dev -r tsconfig-paths/register --respawn --watch src/backend,src/shared ./src/backend/index.ts",
+    "backend:serve": "ts-node -r tsconfig-paths/register ./src/backend/index.ts",
     "backend:test": "jest",
     "backend:test:watch": "jest --watchAll",
     "frontend:dev": "vite"

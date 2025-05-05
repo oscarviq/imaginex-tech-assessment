@@ -1,7 +1,6 @@
 import Chalk from 'chalk';
 
-import { MessageInterval } from '@shared/types';
-import { MessagesConfig } from '@types';
+import { MessageInterval, MessagesConfig } from '@shared/types';
 import { TimeManager } from './time-manager';
 
 export class MessageManager {
@@ -27,6 +26,13 @@ export class MessageManager {
     private readonly _timeManager: TimeManager
   ) {
     this._messages = this._initialMessages;
+  }
+
+  /**
+   * Gets the current messages setting.
+   */
+  public get messages(): MessagesConfig {
+    return this._messages;
   }
 
   /**

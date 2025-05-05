@@ -3,7 +3,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 
 import { FrontendSocketEvents, BackendSocketEvents } from '@shared/types';
-import { Clock } from '@classes';
+import { Clock } from '@backend/classes';
 
 const app = express();
 const server = http.createServer(app);

@@ -1,4 +1,4 @@
-import { TimeManager } from '@classes';
+import { TimeManager } from '@backend/classes';
 
 describe('TimeManager', () => {
   let timeManager: TimeManager;

@@ -1,11 +1,11 @@
 import React, { useState, useReducer, useEffect } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { Socket as S } from 'socket.io-client';
 
-import { FrontendSocketEvents, BackendSocketEvents, ClockMessage } from '@shared/types';
-import { ClockDisplay, Connecting, Disconnected, Error } from '@components';
+import { ClockMessage } from '@shared/types';
+import { Socket } from '@frontend/utils';
+import { ClockDisplay, Connecting, Disconnected, Error } from '@frontend/components';
 
-const socket: Socket<BackendSocketEvents, FrontendSocketEvents> = io('http://localhost:3000', { reconnectionAttempts: 4 });
-const initialClockState: ClockMessage = { message: 'Pending...', type: 'second', seconds: 0 };
+const initialClockState: ClockMessage = { message: '', type: 'second', seconds: 0, currentMessages: undefined };
 const clockStateReducer = (oldState: ClockMessage, newState: ClockMessage) => newState;
 
 export default function App() {
@@ -13,17 +13,17 @@ export default function App() {
   const [clockState, clockStateDispatch] = useReducer(clockStateReducer, initialClockState);
 
   useEffect(() => {
-    socket.on('connect', () => setSocketState('connected'));
-    (socket as Socket).on('reconnect', () => setSocketState('connected'));
+    Socket.on('connect', () => setSocketState('connected'));
+    (Socket as S).on('reconnect', () => setSocketState('connected'));
 
-    socket.on('disconnect', () => setSocketState('disconnected'));
-    (socket as Socket).on('close', () => setSocketState('disconnected'));
-    (socket as Socket).on('connect_error', () => setSocketState('error'));
+    Socket.on('disconnect', () => setSocketState('disconnected'));
+    (Socket as S).on('close', () => setSocketState('disconnected'));
+    (Socket as S).on('connect_error', () => setSocketState('error'));
 
-    socket.on('tick', (event: ClockMessage) => clockStateDispatch(event));
+    Socket.on('tick', (event: ClockMessage) => clockStateDispatch(event));
 
     return () => {
-      socket.removeAllListeners();
+      Socket.removeAllListeners();
     };
   }, []);
 
