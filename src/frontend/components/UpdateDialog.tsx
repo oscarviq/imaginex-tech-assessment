@@ -27,7 +27,7 @@ export default function UpdateDialog({ currentMessages }: UpdateDialogProps) {
       <div className="modal-box">
         <h1 className="bg-primary py-3 px-4 -mx-6 -mt-6 text-white text-xs font-bold uppercase">Update Messages</h1>
         <div className="modal-action block mt-0">
-          <form className="space-y-6" action={ updateMessages }>
+          <form data-testid="update-form" className="space-y-6" action={ updateMessages }>
             <div className="grid md:grid-cols-3 gap-0 md:gap-4">
               <fieldset className="fieldset">
                 <label htmlFor="second" className="fieldset-legend">Seconds</label>
@@ -46,8 +46,8 @@ export default function UpdateDialog({ currentMessages }: UpdateDialogProps) {
             </div>
 
             <div className="flex items-center justify-between">
-              <button className="btn" type="button" onClick={ () => dialog?.close('closed') }>Cancel</button>
-              <button className="btn btn-primary" type="submit">Update</button>
+              <button data-testid="cancel-button" className="btn" type="button" onClick={ () => dialog?.close('closed') }>Cancel</button>
+              <button data-testid="update-button" className="btn btn-primary" type="submit">Update</button>
             </div>
           </form>
         </div>

@@ -42,7 +42,7 @@ export default function ClockDisplay({ seconds, message, type, currentMessages }
 
       <div className="w-full card bg-white shadow">
         <div className="card-body p-2 text-center font-bold uppercase">
-          <span className={`animate-[pulse_1s_ease-in-out_infinite] ${type ? messageTypeColorMapper[type] : ''}`}>{ message || 'Pending...' }</span>
+          <span data-testid="message" className={`animate-[pulse_1s_ease-in-out_infinite] ${type ? messageTypeColorMapper[type] : ''}`}>{ message || 'Pending...' }</span>
         </div>
       </div>
 
@@ -50,7 +50,7 @@ export default function ClockDisplay({ seconds, message, type, currentMessages }
 
       { message && <>
         <div className="tooltip tooltip-bottom tooltip-primary" data-tip="Update Messages">
-          <button className="btn btn-xs btn-primary btn-circle hover:opacity-75" onClick={ ()=> dialog?.showModal() }>
+          <button data-testid="open-modal-button" className="btn btn-xs btn-primary btn-circle hover:opacity-75" onClick={ ()=> dialog?.showModal() }>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
             </svg>
