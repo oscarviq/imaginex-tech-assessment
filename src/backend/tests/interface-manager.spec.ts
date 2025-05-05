@@ -1,7 +1,10 @@
+import mockSdin from 'mock-stdin';
+
 import { TimeManager, MessageManager, InterfaceManager } from '@backend/classes';
 import { MessagesConfig } from '@shared/types';
 
 describe('InterfaceManager', () => {
+  let stdin: unknown;
   let interfaceManager: InterfaceManager;
   let timeManager: TimeManager;
   let messageManager: MessageManager;
@@ -14,6 +17,7 @@ describe('InterfaceManager', () => {
   };
 
   beforeEach(() => {
+    stdin = mockSdin.stdin();
     consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     timeManager = new TimeManager();
     messageManager = new MessageManager(mockMessagesConfig, timeManager);
@@ -21,6 +25,7 @@ describe('InterfaceManager', () => {
   });
 
   afterEach(() => {
+    (stdin as any).restore();
     jest.restoreAllMocks();
     process.stdin.removeAllListeners('keypress');
   });
