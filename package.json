@@ -10,6 +10,8 @@
     "backend:test:watch": "jest --config ./src/backend/jest.config.js --watchAll",
     "frontend:dev": "vite --config ./src/frontend/vite.config.mjs",
     "frontend:build": "vite --config ./src/frontend/vite.config.mjs build",
+    "frontend:test": "vitest --config ./src/frontend/vite.config.mjs run",
+    "frontend:test:watch": "vitest --config ./src/frontend/vite.config.mjs",
     "docker:build": "APP_VERSION=$(git describe --tags --always) docker compose -f ./docker/docker-compose.yaml -p oviquez-imaginex build --no-cache",
     "docker:up": "docker compose -f ./docker/docker-compose.yaml -p oviquez-imaginex up -d --force-recreate"
   },
@@ -29,17 +31,21 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/express": "^5.0.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.3",
     "@vitejs/plugin-react": "^4.4.1",
+    "jsdom": "^26.1.0",
     "mock-stdin": "^1.0.0",
     "nodemon": "^3.1.10",
     "tsconfig-paths": "^4.2.0",
     "tsconfig-paths-jest": "^0.0.1",
     "vite": "^6.3.4",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^3.1.2"
   }
 }

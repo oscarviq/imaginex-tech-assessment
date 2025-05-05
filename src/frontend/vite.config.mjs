@@ -9,10 +9,15 @@ export default defineConfig({
     outDir: '../../dist/frontend',
     emptyOutDir: true
   },
+  test: {
+    root: 'src/frontend',
+    globals: true,
+    environment: 'jsdom',
+    include: ['./tests/**/*.spec.tsx'],
+    setupFiles: ['./setup-tests.ts']
+  },
   plugins: [
-    tsconfigPaths({
-      projects: ['./tsconfig.json']
-    }),
+    tsconfigPaths(),
     react(),
     tailwindcss()
   ]

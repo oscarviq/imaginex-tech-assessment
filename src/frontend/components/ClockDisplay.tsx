@@ -49,7 +49,7 @@ export default function ClockDisplay({ seconds, message, type, currentMessages }
       { !!seconds && <div className="text-center text-gray-400 text-xs">{ formatDuration(seconds) } Elapsed</div> }
 
       { message && <>
-        <div className="tooltip tooltip-bottom tooltip-primary" data-tip="Update Messasages">
+        <div className="tooltip tooltip-bottom tooltip-primary" data-tip="Update Messages">
           <button className="btn btn-xs btn-primary btn-circle hover:opacity-75" onClick={ ()=> dialog?.showModal() }>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>
