@@ -9,6 +9,9 @@ export default defineConfig({
     outDir: '../../dist/frontend',
     emptyOutDir: true
   },
+  server: {
+    open: true,
+  },
   test: {
     root: 'src/frontend',
     globals: true,

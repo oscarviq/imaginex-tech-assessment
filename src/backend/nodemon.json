@@ -2,5 +2,6 @@
   "watch": ["src/backend", "src/shared"],
   "ext": "js,ts,json",
   "ignore": ["src/frontend", "node_modules", "dist"],
-  "exec": "npm run backend:serve"
+  "stdin": false,
+  "exec": "ts-node --project ./src/backend/tsconfig.json ./src/backend/index.ts"
 }

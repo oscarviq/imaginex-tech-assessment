@@ -34,9 +34,11 @@ export class InterfaceManager {
   public start(): void {
     console.log(Chalk.cyan('Clock Started!'));
     console.log(Chalk.blue(this._prompt));
-    if (process.stdin.isTTY) process.stdin.setRawMode(true);
-    process.stdin.once('keypress', this.handleKey.bind(this));
     readline.emitKeypressEvents(process.stdin);
+    if (process.stdin.isTTY) {
+      process.stdin.setRawMode(true);
+    }
+    process.stdin.once('keypress', this.handleKey.bind(this));
   }
 
   /**
